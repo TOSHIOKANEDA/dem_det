@@ -17,10 +17,10 @@ class CarriersController < ApplicationController
     # レンジごとにtariffとeach_dayの日数を掛けて金額をそれぞれ数値型で格納。レンジがなかった場合には0が入る。
     # 例）["SITC", "dem", "20FT DRY", "ALL", 9000, 24000, 63000, 60000]
     amount = Utils::Amount.new(tariff, each_day).calc
-ajax_hash(tariff)
+
     respond_to do |format| # リクエスト形式によって処理を切り分ける
       format.html { redirect_to :root }
-      # format.json { render json: break_down(tariff, date_params, each_day, range, amount) }
+      format.json { render json: break_down(tariff, date_params, each_day, range, amount) }
     end
   end
 
@@ -41,7 +41,7 @@ ajax_hash(tariff)
   end
 
   def date_params
-    params.permit(:port, :dem_det, :start, :finish, :calc, :type, :free, :carrier)
+    params.permit(:format, :port, :dem_det, :start, :finish, :calc, :type, :free, :carrier)
   end
 
   def break_down(tariff, date_params, each_day, range, amount) {
