@@ -1,5 +1,5 @@
 <h1>DEMを計算しましょう</h1>
-  <p>船社：<%= select_tag "", raw("<option>SITC</option><option>MAERSK</option>"), class: "carrier_name" %></p>
+  <p>船社：<%= select_tag "", raw("<option>SITC</option><option>ONE</option>"), class: "carrier_name" %></p>
   <p>タイプ：<%= select_tag "", options_for_select(Carrier.container_types), class: "cntr_type" %></p>
   <p>DEM/DET：<%= select_tag "", raw("<option>dem</option><option>det</option>"), class: "dem_det" %><p>
   <p>出港日 or 入港日：<%= date_field_tag "", "", class: "start" %></p>

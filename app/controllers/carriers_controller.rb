@@ -5,26 +5,54 @@ class CarriersController < ApplicationController
 
   def search
     records = Carrier.find_carrier(date_params)
-    # Tariffを配列に持たせる
-    # 例）["SITC", "dem", "20FT DRY", ALL, 3000, 6000, 9000, 12000]
-    tariff = Utils::Tariff.new(records).tariff_table
-    # 日数のレンジを４段階で抽出する（全て１〜４まである前提）＜＝ない場合の挙動確認
-    # 例）["SITC", "dem", "20FT DRY", ALL, [1, 7], [8, 15], [15, 20], [21, 999999]]
-    range = Utils::Range.new(records).date_range
-    # レンジごとに日数のDate型で配列に格納し、二重配列にする
-    # 例）["SITC", "dem", "20FT DRY", ALL, [first date], [second date], [third date], [fourth date] ]
-    each_day = Utils::EachDay.new(date_params, range).period
-    # レンジごとにtariffとeach_dayの日数を掛けて金額をそれぞれ数値型で格納。レンジがなかった場合には0が入る。
-    # 例）["SITC", "dem", "20FT DRY", "ALL", 9000, 24000, 63000, 60000]
-    amount = Utils::Amount.new(tariff, each_day).calc
+    messages = Carrier.validating(date_params, records) # jsからのデータをvalidatingする
+    if messages.empty?
+      # Tariffを配列に持たせる
+      # 例）["SITC", "dem", "20FT DRY", ALL, 3000, 6000, 9000, 12000]
+      # 4段階目がない例）["SITC", "dem", "20FT DRY", ALL, 3000, 6000, 9000, 0]
+      tariff = Utils::Tariff.new(records).tariff_table
+
+      # 日数のレンジを４段階で抽出する
+      # 例）["SITC", "dem", "20FT DRY", ALL, [1, 7], [8, 15], [15, 20], [21, 999999]]
+      # 4段階目がない例）["SITC", "dem", "20FT DRY", ALL, [1, 10], [11, 15], [15, 999999], [0, 0]]
+      range = Utils::Range.new(records).date_range
+
+      # レンジごとに日数のDate型で配列に格納し、二重配列にする
+      # 例）["SITC", "dem", "20FT DRY", ALL, [first date], [second date], [third date], [fourth date] ]
+      # 4段階目がない例）["SITC", "dem", "20FT DRY", ALL, [first date], [second date], [third date], [] ]
+      each_day = Utils::EachDay.new(date_params, range).period
+
+      # レンジごとにtariffとeach_dayの日数を掛けて金額をそれぞれ数値型で格納。レンジがなかった場合には0が入る。
+      # 例）["SITC", "dem", "20FT DRY", "ALL", 9000, 24000, 63000, 60000]
+      # 4段階目がない例）["SITC", "dem", "20FT DRY", "ALL", 9000, 24000, 63000, 0]
+      amount = Utils::Amount.new(tariff, each_day).calc
+      message = "正常に表示されました"
+      job = true
+    else
+      tariff = empty_array[:tariff]
+      range = empty_array[:range]
+      each_day = empty_array[:each_day]
+      amount = empty_array[:amount]
+      message = messages.join("。")
+      job = false
+    end
 
     respond_to do |format| # リクエスト形式によって処理を切り分ける
       format.html { redirect_to :root }
-      format.json { render json: break_down(tariff, date_params, each_day, range, amount) }
+      format.json { render json: break_down(tariff, date_params, each_day, range, amount, message, job) }
     end
   end
 
   private
+
+  def empty_array 
+    {
+    tariff: ["", "", "", "", 0, 0, 0, 0],
+    range: ["", "", "", "", [0,0], [0,0], [0,0], [0,0]],
+    each_day: ["", "", "", "", [], [], [], []],
+    amount: ["", "", "", "", 0, 0, 0, 0]
+    }
+  end
 
   def convert(data)
     data == [] ? "" : data
@@ -44,9 +72,9 @@ class CarriersController < ApplicationController
     params.permit(:format, :port, :dem_det, :start, :finish, :calc, :type, :free, :carrier)
   end
 
-  def break_down(tariff, date_params, each_day, range, amount) {
+  def break_down(tariff, date_params, each_day, range, amount, message, job) {
     # ajaxに送り返すdataを、ハッシュで格納
-    carrier: tariff[0].upcase,
+    carrier: tariff[0],
     dem_det: tariff[1].upcase,
     type: tariff[2],
     port: port_convert(tariff[3]),
@@ -72,6 +100,8 @@ class CarriersController < ApplicationController
     second_amount: amount[5],
     third_amount: amount[6],
     fourth_amount: amount[7],
-    total_amount: amount[4..7].sum }
+    total_amount: amount[4..7].sum,
+    message: message,
+    job: job}
   end
 end

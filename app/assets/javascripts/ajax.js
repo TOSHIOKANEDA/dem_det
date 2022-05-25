@@ -31,8 +31,10 @@ $(function () {
       $('.js-messages li').remove();
       $('.js-messages p').remove();
       $('.js-messages h2').remove();
+      if (data.job){
       $('.js-messages').append(
         `
+        <p>${data.message}</p>
         <p>${data.carrier}タリフ（${data.type}・${data.dem_det}・港は${data.port}です。）</p>
         <li class="message">超過${data.first_range[0]}日〜${data.first_range[1]}日：${data.first_tariff}円</li>
         <li class="message">超過${data.second_range[0]}日〜${data.second_range[1]}日：${data.second_tariff}円</li>
@@ -47,6 +49,13 @@ $(function () {
         <h2>合計：${data.total_amount}円</h2>
         `
       );
+      } else {
+      $('.js-messages').append(
+        `
+        <p>${data.message}</p>
+        `
+        );
+      }
     })
 
   });

@@ -4,10 +4,8 @@ class Utils::Range
   end
 
   def date_range
-  # ["SITC", "dem", 1, [1,7], [8,15], [15,20], [21,999999]]
     range = []
     @list.each_with_index do |l, i|
-      break if i == 4
       if i == 0
         range << l.name
         range << l.dem_det
@@ -15,6 +13,8 @@ class Utils::Range
         range << l.port
       end
       range << [l.from,l.to] if l.range == raneg_array[i]
+      # 合計で８つの値がprice配列に入れる。７つだったり不足分だけ0を入れる処理。
+      (8 - range.size).times {range << [0,0]} if i == @list.size - 1
     end
     range
   end

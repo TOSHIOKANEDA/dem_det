@@ -6,7 +6,6 @@ class Utils::Tariff
   def tariff_table
     price = []
     @list.each_with_index do |l, i|
-      break if i == 4
       if i == 0
         price << l.name
         price << l.dem_det
@@ -14,6 +13,8 @@ class Utils::Tariff
         price << l.port
       end
       price << l.price if l.range == raneg_array[i]
+      # 合計で８つの値がprice配列に入れる。７つだったり不足分だけ0を入れる処理。
+      (8 - price.size).times {price << 0} if i == @list.size - 1
     end
     price
   end
