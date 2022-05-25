@@ -7,14 +7,22 @@ class Utils::EachDay
     @first = false
     @second = false
     @third = false
+    # ＝＝＝＝＝＝[レンジのパターン]＝＝＝＝＝
+    # DET: 2か3段階構成
+    # DEM: 3か4段階構成
+    # ＝＝＝＝＝＝＝＝＝＝＝＝
 
     @first_from = range[4][0]-1
     @first_to= range[4][1]-1
+
     @second_from = range[5][0]-1
     @second_to = range[5][1]-1
-    @third_from = range[6][0]-1
-    @third_to = range[6][1]-1
-    @fourth_from = range[7][0]-1
+
+    @third_from = range[6].present? ? range[6][0]-1 : false
+    @third_to = range[6].present? ? range[6][1]-1 : false
+
+    @fourth_from = range[7].present? ? range[7][0]-1 : false
+
   end
 
   def period
@@ -65,8 +73,8 @@ class Utils::EachDay
   def date_convert
     first = first_period
     second = @first ? second_period : []
-    third = @first && @second ? third_period : []
-    fourth = @first && @second && @third ? fourth_period : []
+    third = @first && @second && @third_from && @third_to ? third_period : []
+    fourth = @first && @second && @third && @third_from && @third_to && @fourth_from ? fourth_period : []
     result_array
   end
 
