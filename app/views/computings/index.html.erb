@@ -5,8 +5,7 @@
   <p>DEM/DET：<%= select_tag "", raw("<option>dem</option><option>det</option>"), class: "dem_det" %><p>
   <p>起算日：<%= date_field_tag "", "", class: "start" %></p>
   <p>Pick日：<%= date_field_tag "", "", class: "finish" %></p>
-  <p>カウント方法：<%= select_tag :cal, options_for_select(Computing.calcs), class: "calc" %></p>
-  <p>FreeTime：<%= number_field_tag "", nil, min: 0, max: 9, class: "free_time" %>day</p>
+
   <p>port：<%= select_tag "", raw("<option>ALL</option><option>Tokyo/Osaka</option>"), class: "port" %><p>
   <%= submit_tag "計算する", id: "start_cal" %>
 
