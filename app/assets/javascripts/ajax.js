@@ -13,7 +13,7 @@ $(function () {
 
     $.ajax({
       type: 'GET',
-      url: '/carriers/search',
+      url: '/computings/search',
       data:  { 
         start: Start.val(),
         finish: Finish.val(),

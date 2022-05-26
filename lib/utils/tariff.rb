@@ -7,7 +7,7 @@ class Utils::Tariff
     price = []
     @list.each_with_index do |l, i|
       if i == 0
-        price << l.name
+        price << l.carrier.name
         price << l.dem_det
         price << l.container_type
         price << l.port

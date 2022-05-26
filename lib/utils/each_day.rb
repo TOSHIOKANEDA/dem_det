@@ -1,8 +1,13 @@
 class Utils::EachDay
-  def initialize(data, range)
+  def initialize(data, range, calc, free)
     @data = data
-    @free = @data[:free].to_i
+    # @free = @data[:free].to_i
     @range = range
+
+    # DBからFreeTimeとカウント方法を取得します
+    # 同一コンテナであれば、全て同じcalc_methodなのでrecordsの先頭のfree_calc_idを取得
+    @calc_method = calc
+    @free = free
 
     @first = false
     @second = false
@@ -44,7 +49,9 @@ class Utils::EachDay
   def free_period(date_list)
     free_date = []
 
-    case Carrier.calcs.keys[@data[:calc].to_i]
+    case @calc_method
+    # case Computing.calcs.keys[@data[:calc].to_i]
+    # ここはデータベースから取得する方法をとる
     when "working_day"
       date_list.each do |date|
         if date.workday?
