@@ -1,4 +1,3 @@
-MAX = 999999
 CARRIER = 1
 PORT = "ALL"
 

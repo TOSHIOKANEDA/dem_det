@@ -12,7 +12,7 @@
 # "[DET]コンテナ搬出の翌日" 4
 
 # ====[usage]====
-
+# IDなので１スタートに注意。順番を絶対に変えてはいけない。それぞれの船社.rbでIDを直書きしています。
 # Reeferの0日DEMを想定
 FreeCalc.create!(free_day: 0, calc_method: 0, start_count: 0)
 
