@@ -19,8 +19,8 @@ class Computing < ApplicationRecord
     "出港日の翌日": 0, 
     "着岸日の翌日": 1, 
     "本船一括搬入日": 2,
-    "[DEM]着岸日": 3,
-    "[DET]コンテナ搬出の翌日": 4
+    "着岸日": 3,
+    "コンテナ搬出の翌日": 4
   }
 
   class << self

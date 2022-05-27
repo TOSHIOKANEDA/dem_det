@@ -22,12 +22,12 @@ reefer_prices = [
 
 dem_from_dry = [1, 5, 10]
 dem_to_dry = [4, 9, MAX]
-dem_from_ref = [1, 5, 9, 14]
-dem_to_ref = [4, 8, 13, MAX]
+dem_from_ref = [1, 5, 8, 13]
+dem_to_ref = [4, 7, 12, MAX]
 
-@dem_dry_id = 8
-@dem_rf_id = 1
-@dem_sp_id = 6
+@dem_dry_id = 10
+@dem_rf_id = 11
+@dem_sp_id = 12
 # ===========================================
 
 # === DET ===================================

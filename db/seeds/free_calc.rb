@@ -47,12 +47,12 @@ FreeCalc.create!(free_day: 5, calc_method: 0, start_count: 4) # DET dry
 
 
 # SINOTRANSを想定[DEM,DET]
-# 8
-# FreeCalc.create!(free_day: 7, calc_method: 0, start_count: 0) # DEM dry
-# 6
-# FreeCalc.create!(free_day: 4, calc_method: 0, start_count: 0) # DEM OT/FR WHLで設定済み
-# 1
-# FreeCalc.create!(free_day: 0, calc_method: 0, start_count: 0) # DEM RF デフォルトで設定済み
+# 10
+FreeCalc.create!(free_day: 7, calc_method: 0, start_count: 3) # DEM dry
+# 11
+FreeCalc.create!(free_day: 4, calc_method: 0, start_count: 3) # DEM OT/FR
+# 12
+FreeCalc.create!(free_day: 0, calc_method: 0, start_count: 3) # DEM RF
 # 9
 # FreeCalc.create!(free_day: 5, calc_method: 0, start_count: 4) # DET all HASCOで設定済み
 # 7
