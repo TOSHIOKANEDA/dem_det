@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_20_094946) do
+ActiveRecord::Schema.define(version: 2022_05_25_104929) do
 
   create_table "carriers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "active_flg", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "computings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "range", null: false
     t.string "dem_det", null: false
     t.integer "price", null: false
@@ -21,10 +27,22 @@ ActiveRecord::Schema.define(version: 2022_05_20_094946) do
     t.integer "from", null: false
     t.integer "to", null: false
     t.string "port", null: false
-    t.integer "free", null: false
-    t.integer "calc", null: false
+    t.bigint "carrier_id"
+    t.bigint "free_calc_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["carrier_id"], name: "index_computings_on_carrier_id"
+    t.index ["free_calc_id"], name: "index_computings_on_free_calc_id"
+  end
+
+  create_table "free_calcs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "free_day", null: false
+    t.integer "calc_method", null: false
+    t.integer "start_count", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "computings", "carriers"
+  add_foreign_key "computings", "free_calcs"
 end

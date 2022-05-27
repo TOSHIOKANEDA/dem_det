@@ -7,7 +7,7 @@ class Utils::Range
     range = []
     @list.each_with_index do |l, i|
       if i == 0
-        range << l.name
+        range << l.carrier.name
         range << l.dem_det
         range << l.container_type
         range << l.port

@@ -2,6 +2,9 @@
 
 Process to go
 
+memo
+- free_calcでcalender_day, working_dayの計算をさせる
+
 1) 日付をajaxで取得
 2) calender day・wordking dayかを取得
 3) キャリアのdefaultを登録（SITCから取得）

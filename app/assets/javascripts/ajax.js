@@ -1,4 +1,3 @@
-
 $(function () {
   $('#start_cal').click(function () {
     $("h1").css("color", "#0000FF");
@@ -13,7 +12,7 @@ $(function () {
 
     $.ajax({
       type: 'GET',
-      url: '/carriers/search',
+      url: '/computings/search',
       data:  { 
         start: Start.val(),
         finish: Finish.val(),
@@ -38,10 +37,11 @@ $(function () {
         <p>${data.carrier}タリフ（${data.type}・${data.dem_det}・港は${data.port}です。）</p>
         <li class="message">超過${data.first_range[0]}日〜${data.first_range[1]}日：${data.first_tariff}円</li>
         <li class="message">超過${data.second_range[0]}日〜${data.second_range[1]}日：${data.second_tariff}円</li>
-        <li class="message">超過${data.third_range[0]}日〜${data.third_range[1]}日：${data.third_tariff}円</li>
-        <li class="message">超過${data.fourth_range[0]}日〜：${data.fourth_tariff}円</li>
+        <li class="message">超過${data.third_range[0]}日〜${data.third_range[1]}：${data.third_tariff}円</li>
+        <li class="message">超過${data.fourth_range[0]}〜${data.fourth_range[1]}：${data.fourth_tariff}円</li>
         <p>明細</p>
-        <li class="message">フリータイム：${data.free_period[0]}〜${data.free_period[1]}</li>
+        <li class="message">フリータイム${data.free}日間（${data.calc}で計算しています）：${data.free_period[0]}〜${data.free_period[1]}</li>
+        <li class="message">起算日${data.free_period[0]}は、${data.start_count}であることを確認してください。</li>
         <li class="message">超過期間（１）${data.first_each_day[1]}日間（${data.first_each_day[0]}） x ${data.first_tariff}円 ＝ ${data.first_amount}円</li>
         <li class="message">超過期間（２）${data.second_each_day[1]}日間（${data.second_each_day[0]}） x ${data.second_tariff}円 ＝ ${data.second_amount}円</li>
         <li class="message">超過期間（３）${data.third_each_day[1]}日間（${data.third_each_day[0]}） x ${data.third_tariff}円 ＝ ${data.third_amount}円</li>

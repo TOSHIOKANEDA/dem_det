@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "carriers#index"
-  post "carriers/index"
-  get "carriers/search", defaults: { format: :json }
+  root "computings#index"
+  post "computings/index"
+  get "computings/search", defaults: { format: :json }
 end
