@@ -68,6 +68,8 @@ class ComputingsController < ApplicationController
     case carrier
     when "WanHai"
       port.upcase == "ALL" ? "東京港か大阪港以外" : "東京港か大阪港"
+    when "Sinotrans"
+      port.upcase == "ALL" ? "那覇以外の日本全港" : "那覇は実装予定ないです"
     else
       port.upcase == "ALL" ? "日本全港" : ""
     end
