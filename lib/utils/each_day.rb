@@ -18,7 +18,7 @@ class Utils::EachDay
     # ＝＝＝＝＝＝＝＝＝＝＝＝
 
     @first_from = range[4][0]-1
-    @first_to= range[4][1]-1
+    @first_to = range[4][1]-1
 
     @second_from = range[5][0]-1
     @second_to = range[5][1]-1
@@ -35,9 +35,8 @@ class Utils::EachDay
 
     start = Date.parse(@data[:start])
     finish = Date.parse(@data[:finish])
-    diff = (start - finish).to_i.abs
-
     holiday_count = HolidayJp.between(@data[:start], @data[:finish]).count
+    diff = (start - finish).to_i.abs
 
     0.upto(diff) do |d|
       date_list << start + d
@@ -48,31 +47,34 @@ class Utils::EachDay
 
   def free_period(date_list)
     free_date = []
-
-    case @calc_method
-    # case Computing.calcs.keys[@data[:calc].to_i]
-    # ここはデータベースから取得する方法をとる
-    when "working_day"
-      date_list.each do |date|
-        if date.workday?
+    unless @free == 0 # freetimeが0に対応
+      case @calc_method
+      # case Computing.calcs.keys[@data[:calc].to_i]
+      # ここはデータベースから取得する方法をとる
+      when "working_day"
+        date_list.each do |date|
+          if date.workday?
+            free_date << date
+            @free -= 1
+          end
+            break if @free <= 0
+        end
+      when "calender_day"
+        date_list.each do |date|
           free_date << date
           @free -= 1
-        end
           break if @free <= 0
-      end
-    when "calender_day"
-      date_list.each do |date|
-        @free -= 1
-        free_date << date
-        break if @free <= 0
+        end
       end
     end
     charged_period(free_date, date_list)
   end
 
   def charged_period(free_date, date_list)
-    num = date_list.index(free_date.last)
-    date_list.slice!(0, num+1)
+    unless free_date.empty? # freetimeが0に対応
+      num = date_list.index(free_date.last)
+      date_list.slice!(0, num+1)
+    end
     @charged_list = date_list
     date_convert
   end

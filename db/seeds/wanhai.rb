@@ -59,7 +59,7 @@
 # DEM first, second, thirdのデータをそれぞれ作っている =======
 def making_dem_range(type, i, port)
   range = @dem[i]
-  price = @dem_price_array[0][type - 1][i] # 1~9番のコンテナタイプ。１番目は0番目のarrayを読ませるのでマイナス１。
+  price = port == "[DEM ONLY]東京港/大阪港のみ" ? @dem_price_array[1][type - 1][i] : @dem_price_array[0][type - 1][i]# 1~9番のコンテナタイプ。１番目は0番目のarrayを読ませるのでマイナス１。
   from = @dem_from_array[i]
   to = @dem_to_array[i]
   free_calc_id = type.between?(1, 3) ? @dem_dry : @dem_not_dry # typeが1,2,3ならdry。分岐の5番がDEM dry、6はDEM not dry

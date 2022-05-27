@@ -1,4 +1,3 @@
-
 $(function () {
   $('#start_cal').click(function () {
     $("h1").css("color", "#0000FF");

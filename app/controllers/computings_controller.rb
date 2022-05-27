@@ -5,12 +5,13 @@ class ComputingsController < ApplicationController
 
   def search
     records = Computing.find_carrier(date_params)
-    calc_method = Computing.calcs.key(records&.first.free_calc.calc_method)
-    start_count = Computing.start_counts.key(records&.first.free_calc.start_count)
-    free = records&.first.free_calc.free_day
-    # recordsはfirst~fourthまでの４種類かthirdまでの３種類
     messages = Computing.validating(date_params, records) # jsからのデータをvalidatingする
+
+    # recordsはfirst~fourthまでの４種類かthirdまでの３種類
     if messages.empty?
+      free = records&.first.free_calc.free_day
+      calc_method = Computing.calcs.key(records&.first.free_calc.calc_method)
+      start_count = Computing.start_counts.key(records&.first.free_calc.start_count)
       # Tariffを配列に持たせる
       # 例）["SITC", "dem", "20FT DRY", ALL, 3000, 6000, 9000, 12000]
       # 4段階目がない例）["SITC", "dem", "20FT DRY", ALL, 3000, 6000, 9000, 0]
@@ -62,14 +63,23 @@ class ComputingsController < ApplicationController
     data == [] ? "" : data
   end
 
-  def port_convert(port)
+  def port_convert(port, carrier)
     # WHL, TSLの条件分岐をする
-    port.upcase == "ALL" ? "日本全港" : ""
+    case carrier
+    when "WanHai"
+      port.upcase == "ALL" ? "東京港か大阪港以外" : "東京港か大阪港"
+    else
+      port.upcase == "ALL" ? "日本全港" : ""
+    end
   end
 
-  def free_period(start, finish, each_day)
+  def free_period(start, finish, each_day, free)
     # each_day[4]がfirst_each_dayで、最初の日付の１日前
-    each_day.blank? ? [start, finish] : [start, (each_day[0] - 1)]
+    if free == 0
+      ["フリータイムはありません", ""]
+    else
+      each_day.blank? ? [start, finish] : [start, (each_day[0] - 1)]
+    end
   end
 
   def date_params
@@ -88,9 +98,9 @@ class ComputingsController < ApplicationController
     carrier: tariff[0],
     dem_det: tariff[1].upcase,
     type: tariff[2],
-    port: port_convert(tariff[3]),
+    port: port_convert(tariff[3], tariff[0]),
     free: free,
-    free_period: free_period(date_params[:start], date_params[:finish], each_day[4]),
+    free_period: free_period(date_params[:start], date_params[:finish], each_day[4], free),
 
     first_tariff: tariff[4],
     second_tariff: tariff[5],

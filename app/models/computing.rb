@@ -37,8 +37,14 @@ class Computing < ApplicationRecord
       messages = []
       if params.blank?
         messages << "入力データ異常"
-      elsif record.blank?
-        messages << "指定された条件は、まだデータが揃ってません・・・"
+      elsif record.blank? && params[:carrier].present?
+        carrier = Carrier.find(params[:carrier]).name
+        case [params[:port], params[:dem_det], carrier]
+        when ["[DEM ONLY]東京港/大阪港のみ", "det", "WanHai"]
+          messages << "「#{params[:port]}」はDET（ディテンション）でしか選択できないです"
+        else
+          messages << "指定された条件は、まだデータが揃ってません・・・"
+        end
       else
         params.each { |k, v| messages << "未選択の値があります" if params.values_at(k) == [""] }
         messages << "Pick日が起算日よりも前に設定されてます" if params[:start] > params[:finish]

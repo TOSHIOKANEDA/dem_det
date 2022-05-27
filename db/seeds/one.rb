@@ -1,5 +1,5 @@
-CARRIER = 1
-PORT = "ALL"
+carrier = 1
+port = "ALL"
 
 # DataSet ================================================
 # === DEM ===================================
@@ -47,7 +47,7 @@ det_to_array = [4, 9, MAX]
     from = dem_from_array[i]
     to = dem_to_array[i]
     free_calc_id = type.between?(1, 3) ? 2 : 3 # typeが1,2,3ならdry。分岐の2番がDEM dry、3はDEM not dry
-    Computing.create!( container_type: type, range: range, price: price, port: PORT, from: from, to: to, carrier_id: CARRIER,
+    Computing.create!( container_type: type, range: range, price: price, port: port, from: from, to: to, carrier_id: carrier,
       dem_det: "dem",
       free_calc_id: free_calc_id
     )
@@ -60,7 +60,7 @@ det_to_array = [4, 9, MAX]
     price = det_price_array[type - 1][i] # 1~9番のコンテナタイプ。１番目は0番目のarrayを読ませるのでマイナス１。
     from = det_from_array[i]
     to = det_to_array[i]
-    Computing.create!( container_type: type, range: range, price: price, port: PORT, from: from, to: to, carrier_id: CARRIER,
+    Computing.create!( container_type: type, range: range, price: price, port: port, from: from, to: to, carrier_id: carrier,
       dem_det: "det",
       free_calc_id: 4 # DETは１択なんで一律で４番
     )
