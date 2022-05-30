@@ -1,5 +1,5 @@
 # rootパスのディレクトリを指定（「../」が先頭に追加）
-root_path = File.expand_path('../../', __FILE__)
+root_path = File.expand_path('../../../', __FILE__)
 
 # アプリケーションサーバの性能を決定する
 worker_processes 2
