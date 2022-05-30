@@ -51,5 +51,5 @@ production:
   <<: *default
   database: escot_round_production
   username: root
-  password: <%= ENV['DEM_DET_DATABASE_PASSWORD'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: /var/lib/mysql/mysql.sock
