@@ -1,4 +1,9 @@
 class ComputingsController < ApplicationController
+  require './lib/utils/amount'
+  require './lib/utils/each_day'
+  require './lib/utils/range'
+  require './lib/utils/tariff'
+
   def index
     @carriers = Carrier.where(active_flg: 0)
   end
