@@ -70,6 +70,8 @@ class ComputingsController < ApplicationController
       port.upcase == "ALL" ? "東京港か大阪港以外" : "東京港か大阪港"
     when "JJ"
       port.upcase == "ALL" ? "那覇以外の日本全港" : "那覇は実装予定ないです"
+    when "YangMing"
+      port.upcase == "ALL" ? "日本全港（但し：植検必要な貨物で、積み地がUSA/CANADA以外）" : "那覇は実装予定ないです"
     else
       port.upcase == "ALL" ? "日本全港" : ""
     end

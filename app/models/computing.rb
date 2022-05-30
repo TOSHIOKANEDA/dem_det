@@ -20,7 +20,9 @@ class Computing < ApplicationRecord
     "着岸日の翌日": 1, 
     "本船一括搬入日": 2,
     "着岸日": 3,
-    "コンテナ搬出の翌日": 4
+    "コンテナ搬出の翌日": 4,
+    "コンテナ搬出日": 5,
+    "着岸日の翌営業日（東京/大阪OffDockは、OffDock到着の翌日）": 6
   }
 
   class << self

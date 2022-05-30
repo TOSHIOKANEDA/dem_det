@@ -1,6 +1,6 @@
-<h1>DEMを計算しましょう</h1>
+<h1>デマレージ・ディテンションを計算しましょう</h1>
 
-  <p>船社：<%= select_tag "", options_from_collection_for_select(@carriers, :id, :name), {selected: 1, class: "carrier_name"} %></p>
+  <p>船社：<%= select_tag "", options_from_collection_for_select(@carriers, :id, :name), class: "carrier_name" %></p>
   <p>タイプ：<%= select_tag "", options_for_select(Computing.container_types), class: "cntr_type" %></p>
   <p>DEM/DET：<%= select_tag "", raw("<option>dem</option><option>det</option>"), class: "dem_det" %><p>
   <p>起算日：<%= date_field_tag "", "", class: "start" %></p>
@@ -9,6 +9,7 @@
   <p>port：<%= select_tag "", raw("<option>ALL</option>"), class: "port" %><p>
   <%= submit_tag "計算する", id: "start_cal" %>
 
+  <p>計算間違ってたら連絡もらえると嬉しいです。ディテンションは、これに消費税かかるっぽいです。費用は参考程度にしてくださいね（なんかあっても責任は取りません）</p>
   <ul class="js-messages">
-    <li class="message"></li><!-- 部分テンプレートを呼び出し-->
+    <li class="message"></li>
   </ul>

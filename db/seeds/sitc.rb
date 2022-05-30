@@ -1,27 +1,27 @@
-@carrier = 4
+@carrier = 5
 @port = "ALL"
 
 # DataSet ================================================
 # === DEM ===================================
 
-dry_ranges = ["first", "second", "third"]
-reefer_ranges = ["first", "second", "third", "fourth"]
-dry_prices = [
-  [1, 3000, 6000, 12000], #20FT DRY
-  [2, 4500, 9000, 18000], #40FT DRY
-  [3, 4500, 9000, 18000], #40FT HighCube DRY
+sp_ranges = ["first", "second", "third"]
+other_ranges = ["first", "second", "third", "fourth"]
+sp_prices = [
   [6, 9000, 18000, 36000], #20FT OpenTop
   [7, 13500, 27000, 54000], #40FT OpenTop
   [8, 9000, 18000, 36000], #20FT FlatRack
   [9, 13500, 27000, 54000] #40FT FlatRack
 ]
-reefer_prices = [
+other_prices = [
+  [1, 3000, 6000, 9000, 12000], #20FT DRY
+  [2, 4500, 9000, 13500, 18000], #40FT DRY
+  [3, 4500, 9000, 13500, 18000], #40FT HighCube DRY
   [4, 5000, 9000, 18000, 36000], #20FT Reefer
   [5, 5000, 13500, 27000, 54000] #40FT HighCube Reefer
 ]
 
-dem_from_dry = [1, 5, 10]
-dem_to_dry = [4, 9, MAX]
+dem_from_dry = [1, 4, 8, 15]
+dem_to_dry = [3, 7, 14, MAX]
 dem_from_ref = [1, 5, 8, 13]
 dem_to_ref = [4, 7, 12, MAX]
 
@@ -33,20 +33,20 @@ dem_to_ref = [4, 7, 12, MAX]
 # === DET ===================================
 det = ["first", "second"]
 det_price_array = [
-  [600, 1200], #20FT DRY
-  [1200, 2400], #40FT DRY
-  [1200, 2400], #40FT HighCube DRY
-  [3500, 10500], #20FT Reefer
-  [7000, 21000], #40FT HighCube Reefer
-  [3500, 10500], #20FT OpenTop
-  [7000, 21000], #40FT OpenTop
-  [3500, 10500], #20FT FlatRack
-  [7000, 21000] #40FT FlatRack
+  [1200, 2400], #20FT DRY
+  [2400, 4800], #40FT DRY
+  [2400, 4800], #40FT HighCube DRY
+  [4000, 12000], #20FT Reefer
+  [8000, 24000], #40FT HighCube Reefer
+  [4000, 12000], #20FT OpenTop
+  [8000, 24000], #40FT OpenTop
+  [4000, 12000], #20FT FlatRack
+  [8000, 24000] #40FT FlatRack
 ]
 det_from_array = [1, 6]
 det_to_array = [5, MAX]
-det_dry_id = 9
-det_not_dry_id = 7
+det_dry_id = 13
+det_not_dry_id = 14
 # ===========================================
 
 # RUNTIME ===============================================
@@ -73,15 +73,15 @@ def making_dem_range(type, price, range, from, to)
 end
 
 
-# === REF以外の7種類のコンテナタイプのレコードを作成する===
-dry_prices.each do |price_array|
-  dry_ranges.each.with_index do |range, i|
+# === SP以外の7種類のコンテナタイプのレコードを作成する===
+sp_prices.each do |price_array|
+  sp_ranges.each.with_index do |range, i|
     making_dem_range(price_array[0], price_array[i+1], range, dem_from_dry[i], dem_to_dry[i])
   end
 end
 
-reefer_prices.each do |price_array|
-  reefer_ranges.each.with_index do |range, i|
+other_prices.each do |price_array|
+  other_ranges.each.with_index do |range, i|
     making_dem_range(price_array[0], price_array[i+1], range, dem_from_ref[i], dem_to_ref[i])
   end
 end
