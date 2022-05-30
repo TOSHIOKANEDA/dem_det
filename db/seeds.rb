@@ -1,4 +1,4 @@
-CARRIERS = [ "ONE", "WanHai", "Hasco", "Sinotrans", "JJ"]
+CARRIERS = [ "ONE", "WanHai", "Hasco", "Sinotrans", "SITC", "YangMing"]
 MAX = 999999
 items = ['carrier','free_calc']
 
