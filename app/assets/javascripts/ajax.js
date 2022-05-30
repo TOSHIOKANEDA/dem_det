@@ -32,8 +32,7 @@ $(function () {
       $('.js-messages h2').remove();
       if (data.job){
       $('.js-messages').append(
-        `
-        <p>${data.message}</p>
+        `<p>${data.message}</p>
         <p>${data.carrier}タリフ（${data.type}・${data.dem_det}・港は${data.port}です。）</p>
         <li class="message">超過${data.first_range[0]}日〜${data.first_range[1]}日：${data.first_tariff}円</li>
         <li class="message">超過${data.second_range[0]}日〜${data.second_range[1]}日：${data.second_tariff}円</li>
@@ -46,8 +45,7 @@ $(function () {
         <li class="message">超過期間（２）${data.second_each_day[1]}日間（${data.second_each_day[0]}） x ${data.second_tariff}円 ＝ ${data.second_amount}円</li>
         <li class="message">超過期間（３）${data.third_each_day[1]}日間（${data.third_each_day[0]}） x ${data.third_tariff}円 ＝ ${data.third_amount}円</li>
         <li class="message">超過期間（４）${data.fourth_each_day[1]}日間（${data.fourth_each_day[0]}） x ${data.fourth_tariff}円 ＝ ${data.fourth_amount}円</li>
-        <h2>合計：${data.total_amount}円</h2>
-        `
+        <h2>合計：${data.total_amount}円</h2>`
       );
       } else {
       $('.js-messages').append(
