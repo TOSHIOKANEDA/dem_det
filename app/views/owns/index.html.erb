@@ -1,0 +1,21 @@
+<h1>自由計算版</h1>
+  <p>起算日：<%= date_field_tag "", "", class: "start" %></p>
+  <p>Pick日：<%= date_field_tag "", "", class: "finish" %></p>
+  <p>計算方法：<%= select_tag "", raw("<option>calender_day</option><option>working_day</option>"), class: "calc" %></p>
+  <p>フリータイム：<%= select_tag "", options_for_select(option_array), class: "free_time" %></p>
+  <p>スタートカウント：<%= select_tag "", options_for_select(Computing.start_counts.except("着岸日の翌営業日（東京/大阪OffDockは、OffDock到着の翌日）")), class: "start_count" %></p>
+  <p>タリフ：
+  <% ["first", "second", "third", "fourth"].each.with_index(1) do |period, i| %>
+    <p>第<%= i %>期間：
+    <%= select_tag "", options_for_select(option_array), class: "#{period}_from" %>
+    から
+    <%= select_tag "", options_for_select(option_array), class: "#{period}_to" %></p>
+    <p>金額：<%= select_tag "", options_for_select(price_array), class: "#{period}_amount" %></p>
+  <% end %>
+  </p>
+  <%= submit_tag "計算する", id: "start_cal_own" %>
+
+  <p>計算間違ってたら連絡もらえると嬉しいです。ディテンションは、これに消費税かかるっぽいです。費用は参考程度にしてくださいね（なんかあっても責任は取りません）</p>
+  <ul class="js-messages">
+    <li class="message"></li>
+  </ul>

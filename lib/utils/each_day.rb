@@ -7,7 +7,7 @@ class Utils::EachDay
     # DBからFreeTimeとカウント方法を取得します
     # 同一コンテナであれば、全て同じcalc_methodなのでrecordsの先頭のfree_calc_idを取得
     @calc_method = calc
-    @free = free
+    @free = free.to_i
 
     @first = false
     @second = false
@@ -16,7 +16,7 @@ class Utils::EachDay
     # DET: 2か3段階構成
     # DEM: 3か4段階構成
     # ＝＝＝＝＝＝＝＝＝＝＝＝
-
+p range
     @first_from = range[4][0]-1
     @first_to = range[4][1]-1
 
