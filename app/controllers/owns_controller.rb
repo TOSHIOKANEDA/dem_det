@@ -10,7 +10,6 @@ class OwnsController < ApplicationController
   def calcurate
     calc_method = date_params[:calc]
     free = date_params[:free]
-    start_count = date_params[:start_count]
 
     tariff = ["free", "free", "free", "free", date_params[:first_amount].to_i, date_params[:second_amount].to_i, date_params[:third_amount].to_i, date_params[:fourth_amount].to_i]
     range = ["free", "free", "free", "free", [date_params[:first_from].to_i, date_params[:first_to].to_i], [date_params[:second_from].to_i, date_params[:second_to].to_i], [date_params[:third_from].to_i, date_params[:third_to].to_i], [date_params[:fourth_from].to_i, date_params[:fourth_to].to_i]]
@@ -20,15 +19,15 @@ class OwnsController < ApplicationController
     job = true
 
     respond_to do |format|
-      format.html { redirect_to owns_search_path }
-      format.json { render json: break_down(tariff, date_params, each_day, range, amount, message, job, free, calc_method, start_count) }
+      # format.html { redirect_to owns_search_path }
+      format.json { render json: break_down(tariff, date_params, each_day, range, amount, message, job, free, calc_method) }
     end
   end
 
   private
 
   def date_params
-    params.permit(:start_count, :format, :start, :finish, :calc, :free, :first_from, :first_to, :first_amount, :second_from, :second_to, :second_amount, :third_from, :third_to, :third_amount, :fourth_from, :fourth_to, :fourth_amount)
+    params.permit(:format, :start, :finish, :calc, :free, :first_from, :first_to, :first_amount, :second_from, :second_to, :second_amount, :third_from, :third_to, :third_amount, :fourth_from, :fourth_to, :fourth_amount)
   end
 
   def empty_array 
@@ -58,7 +57,7 @@ class OwnsController < ApplicationController
     @fourth = third[1].to_i == 999999 ? ["--","--"] : ["#{fourth[0]}日","以後ずっと"]
   end
 
-  def break_down(tariff, date_params, each_day, range, amount, message, job, free, calc_method, start_count)
+  def break_down(tariff, date_params, each_day, range, amount, message, job, free, calc_method)
     max(range[6], range[7])
     {
     # ajaxに送り返すdataを、ハッシュで格納

@@ -8,12 +8,9 @@ module OwnsHelper
     price_array
   end
 
-  def option_array
+  def option_array(n)
     option_array = []
-    999.times do |n|
-      n += 1
-      option_array << n
-    end
+    n.upto(999) {|n| option_array << n}
     option_array
   end
 end

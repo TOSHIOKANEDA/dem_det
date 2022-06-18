@@ -5,7 +5,7 @@ $(function () {
     var Finish = $('.finish');
     var Calc = $('.calc')
     var Free = $('.free_time')
-    var StartCount = $('.start_count')
+
     var FirstFrom = $('.first_from')
     var FirstTo = $('.first_to')
     var FirstAmount = $('.first_amount')
@@ -19,7 +19,6 @@ $(function () {
     var FourthTo = $('.fourth_to')
     var FourthAmount = $('.fourth_amount')
 
-
     $.ajax({
       type: 'GET',
       url: '/owns/calcurate',
@@ -28,7 +27,6 @@ $(function () {
         finish: Finish.val(),
         calc: Calc.val(),
         free: Free.val(),
-        start_count: StartCount.val(),
 
         first_from: FirstFrom.val(),
         first_to: FirstTo.val(),
