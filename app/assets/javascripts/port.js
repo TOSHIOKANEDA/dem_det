@@ -2,7 +2,6 @@
 $(function () {
   $(".carrier_name").change(function(){
     var carrier = $(".carrier_name").val()
-    console.log(carrier)
     var option_wanhai = `<option id="optional">[DEM ONLY]東京港/大阪港のみ</option>`
     if (carrier == 2){
       $('p .port').append(option_wanhai)

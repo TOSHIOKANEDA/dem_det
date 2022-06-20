@@ -1,0 +1,25 @@
+<h1>自由計算版</h1>
+<h2><%= link_to "ログイン", new_user_session_path %></h2>
+<h2><%= link_to "ログアウト", destroy_user_session_path, method: "delete" %></h2>
+<% if @appear %><%= render partial: "tariff" %><% end %>
+<h2><% if user_signed_in? %><%= link_to "タリフの設定", new_tariff_path %><% end %></h2>
+  <p>起算日：<%= date_field_tag "","", class: "start", id: "rqd", min: "2000-01-01" %></p>
+  <p>Pick日：<%= date_field_tag "", "", class: "finish", id: "rqd" %></p>
+
+  <p>計算方法：<%= select_tag "", options_for_select(calc_array, selected: @copy_value[:calc]), class: "calc", id: "rqd" %></p>
+  <p>フリータイム：<%= select_tag "", options_for_select(option_array(1), selected: @copy_value[:free]), class: "free_time", id: "rqd" %></p>
+  <p>タリフ（以降ずっとの場合、Toの部分に999を入力し、その後の期間のFromTo両方を999にしてください）：
+  <% ["first", "second", "third", "fourth"].each.with_index(1) do |period, i| %>
+    <p class= "period_wrap_<%= i %>">第<%= i %>期間（From から To）：
+    <%= number_field_tag "","",min:1, max: 999, class: "#{period}_from", id: "rqd", value: @copy_value[symbol_from[i-1]] %>
+    から
+    <%= number_field_tag "","",min:1, max: 999, class: "#{period}_to", id: "rqd", value: @copy_value[symbol_to[i-1]] %></p>
+    <p>金額：<%= select_tag "", options_for_select(price_array, selected: @copy_value[symbol_amount[i-1]]), class: "#{period}_amount", id: "rqd" %></p>
+  <% end %>
+  </p>
+  <%= submit_tag "計算する", id: "start_cal_own", style:"display: none" %>
+
+  <p>計算間違ってたら連絡もらえると嬉しいです。費用は参考程度にしてくださいね（なんかあっても責任は取りません）</p>
+  <ul class="js-messages">
+    <li class="message"></li>
+  </ul>

@@ -7,7 +7,7 @@ class Utils::EachDay
     # DBからFreeTimeとカウント方法を取得します
     # 同一コンテナであれば、全て同じcalc_methodなのでrecordsの先頭のfree_calc_idを取得
     @calc_method = calc
-    @free = free
+    @free = free.to_i
 
     @first = false
     @second = false

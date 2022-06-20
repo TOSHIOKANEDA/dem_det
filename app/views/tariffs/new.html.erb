@@ -1,0 +1,17 @@
+<%= link_to "自由計算に戻る", root_path %>
+<%= form_with model: @tariff, url: tariffs_path, method: :post do |f| %>
+  <label>呼び出し名：</label>
+  <%= f.text_field :name, required: true %>
+
+  <p>計算方法：<%= f.select :calc, options_for_select(calc_array) %></p>
+  <p>フリータイム：<%= f.select :free, options_for_select(option_array(1)) %></p>
+  <p>タリフ（以降ずっとの場合、Toの部分に999を入力し、その後の期間のFromTo両方を999にしてください）：</p>
+  <% ["first", "second", "third", "fourth"].each.with_index(1) do |period, i| %>
+    <p class= "period_wrap_<%= i %>">第<%= i %>期間（From から To）：
+    <%= f.number_field symbol_from[i-1], min:1, max: 999, class: "#{period}_from" %>
+    から
+    <%= f.number_field symbol_to[i-1], min:1, max: 999, class: "#{period}_to" %></p>
+    <p>金額：<%= f.select symbol_amount[i-1], options_for_select(price_array), class: "#{period}_amount" %></p>
+  <% end %>
+  <%= f.submit "保存する" %>
+<% end %>

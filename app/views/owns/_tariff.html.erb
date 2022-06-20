@@ -1,0 +1,4 @@
+<h2><%= link_to "リセット", root_path %></h2>
+<% @tariffs.each do |t| %>
+  <%= link_to t.name, owns_index_path(id: t.id, user_id: current_user.id) %>
+<% end %>

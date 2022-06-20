@@ -54,5 +54,40 @@ class Computing < ApplicationRecord
       messages.uniq
     end
 
+    def free_validating(params)
+      messages = []
+      empty_column = "未選択の値があります"
+      empty_params = "入力データ異常"
+      if params.blank?
+        messages << empty_params
+      else
+        params.each { |k, v| messages << empty_column if ["選択してください", ""].include? params.values_at(k).join() }
+        unless [empty_column, empty_params].include?(messages)
+          messages << "Pick日が起算日よりも前に設定されてます" if params[:start] > params[:finish]
+          fromto_array = [
+            [params[:first_from].to_i, params[:first_to].to_i],
+            [params[:second_from].to_i, params[:second_to].to_i],
+            [params[:third_from].to_i, params[:third_to].to_i],
+            [params[:fourth_from].to_i, params[:fourth_to].to_i]
+          ]
+          fromto_array.each.with_index(1) do |ft, i|
+            res = free_from_to(ft[0], ft[1], i) == "" ? true : false
+            messages << free_from_to(ft[0], ft[1], i) unless res
+          end
+        end
+      end
+      messages
+    end
+
+    def free_from_to(from, to, i)
+      if to == 999 && from > to
+        "第#{i}期間で、FromがToよりも後に設定されています"
+      elsif to != 999 && from >= to
+        "第#{i}期間で、FromがToよりも後に設定されています"
+      else
+        ""
+      end
+    end
+
   end
 end
