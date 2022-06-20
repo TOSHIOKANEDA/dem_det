@@ -71,23 +71,21 @@ class Computing < ApplicationRecord
             [params[:fourth_from].to_i, params[:fourth_to].to_i]
           ]
           fromto_array.each.with_index(1) do |ft, i|
-            res = free_from_to(ft[0], ft[1], i)
-            messages << res unless res
+            res = free_from_to(ft[0], ft[1], i) == "" ? true : false
+            messages << free_from_to(ft[0], ft[1], i) unless res
           end
-
         end
       end
       messages
     end
 
     def free_from_to(from, to, i)
-      @res = false
       if to == 999 && from > to
         "第#{i}期間で、FromがToよりも後に設定されています"
       elsif to != 999 && from >= to
         "第#{i}期間で、FromがToよりも後に設定されています"
       else
-        @res = true
+        ""
       end
     end
 

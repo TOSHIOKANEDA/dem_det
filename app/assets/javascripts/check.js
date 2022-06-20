@@ -50,7 +50,7 @@ $(function () {
         class_name.css('background-color', 'white');
       }
     }
-    
+
     function CheckNoSelect(class_name){
       if (class_name.val() == '選択してください') {
         class_name.css('background-color', 'red');
@@ -59,7 +59,6 @@ $(function () {
         class_name.css('background-color', 'white');
       }
     }
-
 
     if (c_empty && c_fromto && c_select) {
       $('#start_cal_own').css('display', 'block');

@@ -16,7 +16,7 @@ class Utils::EachDay
     # DET: 2か3段階構成
     # DEM: 3か4段階構成
     # ＝＝＝＝＝＝＝＝＝＝＝＝
-p range
+
     @first_from = range[4][0]-1
     @first_to = range[4][1]-1
 
