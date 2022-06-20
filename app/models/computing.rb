@@ -61,8 +61,8 @@ class Computing < ApplicationRecord
       if params.blank?
         messages << empty_params
       else
-        params.each { |k, v| messages << empty_alert if params.values_at(k) == [""] }
-        unless messages.include?(empty_alert, empty_params)
+        params.each { |k, v| messages << empty_column if ["選択してください", ""].include? params.values_at(k).join() }
+        unless [empty_column, empty_params].include?(messages)
           messages << "Pick日が起算日よりも前に設定されてます" if params[:start] > params[:finish]
           fromto_array = [
             [params[:first_from].to_i, params[:first_to].to_i],

@@ -1,6 +1,7 @@
 class CreateTariffs < ActiveRecord::Migration[5.2]
   def change
     create_table :tariffs do |t|
+      t.string :name, null: false, default: ""
       t.string :calc, null: false, default: ""
       t.string :free, null: false, default: ""
       t.string :first_from, null: false, default: "1"

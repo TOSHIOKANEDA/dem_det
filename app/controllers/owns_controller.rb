@@ -5,6 +5,12 @@ class OwnsController < ApplicationController
   require './lib/utils/tariff'
 
   def index
+    @appear = false
+    if user_signed_in?
+      @tariffs = Tariff.where(user_id: current_user.id).includes(:user)
+      @appear = true unless @tariffs.blank?
+    end
+    params[:id].present? && user_signed_in? ? copy_values(params[:id], params[:user_id]) : no_values
   end
 
   def calcurate
@@ -29,12 +35,54 @@ class OwnsController < ApplicationController
     end
 
     respond_to do |format|
-      # format.html { redirect_to owns_search_path }
       format.json { render json: break_down(tariff, jquery_params, each_day, range, amount, message, job, free, calc_method) }
     end
   end
 
   private
+
+  def copy_values(tariff_id, user_id)
+    if user_id.to_i == current_user.id
+      tariff = Tariff.find(tariff_id)
+      @copy_value = {
+        calc: tariff.calc, 
+        free: tariff.free, 
+        first_from: tariff.first_from, 
+        first_to: tariff.first_to, 
+        first_amount: tariff.first_amount, 
+        second_from: tariff.second_from, 
+        second_to: tariff.second_to, 
+        second_amount: tariff.second_amount, 
+        third_from: tariff.third_from, 
+        third_to: tariff.third_to, 
+        third_amount: tariff.third_amount, 
+        fourth_from: tariff.fourth_from, 
+        fourth_to: tariff.fourth_to, 
+        fourth_amount: tariff.fourth_amount
+      }
+    else
+      no_values
+    end
+  end
+
+  def no_values
+    @copy_value = {
+      calc: "選択してください",
+      free: "選択してください",
+      first_from: "1", 
+      first_to: "0",
+      first_amount: "選択してください",
+      second_from: "0",
+      second_to: "0",
+      second_amount: "選択してください",
+      third_from: "0",
+      third_to: "0",
+      third_amount: "選択してください",
+      fourth_from: "0",
+      fourth_to: "999",
+      fourth_amount: "選択してください"
+    }
+  end
 
   def jquery_params
     params.permit(:format, :start, :finish, :calc, :free, :first_from, :first_to, :first_amount, :second_from, :second_to, :second_amount, :third_from, :third_to, :third_amount, :fourth_from, :fourth_to, :fourth_amount)

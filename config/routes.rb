@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
   root "owns#index"
+
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    passwords: 'users/passwords',
+    registrations: 'users/registrations' 
+  }
+
+  resources :tariffs
   get "computings/index"
   post "computings/index"
   get "computings/search", defaults: { format: :json }

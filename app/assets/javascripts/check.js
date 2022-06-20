@@ -1,6 +1,5 @@
 $(function () {
-  $("input[id= rqd], select[id= rqd]").change(function(){
-
+  $("input[id=rqd], select[id= rqd]").change(function(){
     var Start = $('.start');
     var Finish = $('.finish');
     var Calc = $('.calc')
@@ -23,6 +22,10 @@ $(function () {
     var class_select_array = [Free, Calc, FirstAmount, SecondAmount, ThirdAmount, FourthAmount]
     var from_to_array = [[FirstFrom.val(), FirstTo.val()],[SecondFrom.val(), SecondTo.val()], [ThirdFrom.val(), ThirdTo.val()], [FourthFrom.val(), FourthTo.val()] ]
 
+    var c_empty = true
+    var c_fromto = true
+    var c_select = true
+
     $.each(class_array, function(i, value){CheckEmpty(value)})
     $.each(class_select_array, function(i, value){CheckNoSelect(value)})
     $.each(from_to_array, function(i, value){CheckFromTo(i+1, value)})
@@ -36,7 +39,6 @@ $(function () {
         c_fromto = false
       } else {
         $(".period_wrap_"+ i).css('background-color', 'white')
-        c_fromto = true
       }
     }
 
@@ -46,7 +48,6 @@ $(function () {
         c_empty = false
       } else {
         class_name.css('background-color', 'white');
-        c_empty = true
       }
     }
     
@@ -56,7 +57,6 @@ $(function () {
         c_select = false
       } else {
         class_name.css('background-color', 'white');
-        c_select = true
       }
     }
 

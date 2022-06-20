@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2022_06_20_053527) do
   end
 
   create_table "tariffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", default: "", null: false
     t.string "calc", default: "", null: false
     t.string "free", default: "", null: false
     t.string "first_from", default: "1", null: false
