@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_25_104929) do
+ActiveRecord::Schema.define(version: 2022_06_20_053527) do
 
   create_table "carriers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -43,6 +43,40 @@ ActiveRecord::Schema.define(version: 2022_05_25_104929) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tariffs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "calc", default: "", null: false
+    t.string "free", default: "", null: false
+    t.string "first_from", default: "1", null: false
+    t.string "first_to", default: "999", null: false
+    t.string "first_amount", default: "0", null: false
+    t.string "second_from", default: "999", null: false
+    t.string "second_to", default: "999", null: false
+    t.string "second_amount", default: "0", null: false
+    t.string "third_from", default: "999", null: false
+    t.string "third_to", default: "999", null: false
+    t.string "third_amount", default: "0", null: false
+    t.string "fourth_from", default: "999", null: false
+    t.string "fourth_to", default: "999", null: false
+    t.string "fourth_amount", default: "0", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tariffs_on_user_id"
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "name", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   add_foreign_key "computings", "carriers"
   add_foreign_key "computings", "free_calcs"
+  add_foreign_key "tariffs", "users"
 end

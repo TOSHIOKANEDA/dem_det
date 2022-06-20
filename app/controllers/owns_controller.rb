@@ -8,25 +8,35 @@ class OwnsController < ApplicationController
   end
 
   def calcurate
-    calc_method = date_params[:calc]
-    free = date_params[:free]
+    messages = Computing.free_validating(jquery_params)
+    if messages.empty?
+      calc_method = jquery_params[:calc]
+      free = jquery_params[:free]
 
-    tariff = ["free", "free", "free", "free", date_params[:first_amount].to_i, date_params[:second_amount].to_i, date_params[:third_amount].to_i, date_params[:fourth_amount].to_i]
-    range = ["free", "free", "free", "free", [date_params[:first_from].to_i, date_params[:first_to].to_i], [date_params[:second_from].to_i, date_params[:second_to].to_i], [date_params[:third_from].to_i, date_params[:third_to].to_i], [date_params[:fourth_from].to_i, date_params[:fourth_to].to_i]]
-    each_day = Utils::EachDay.new(date_params, range, calc_method, free).period
-    amount = Utils::Amount.new(tariff, each_day).calc
-    message = "正常に表示されました"
-    job = true
+      tariff = ["free", "free", "free", "free", jquery_params[:first_amount].to_i, jquery_params[:second_amount].to_i, jquery_params[:third_amount].to_i, jquery_params[:fourth_amount].to_i]
+      range = ["free", "free", "free", "free", [jquery_params[:first_from].to_i, jquery_params[:first_to].to_i], [jquery_params[:second_from].to_i, jquery_params[:second_to].to_i], [jquery_params[:third_from].to_i, jquery_params[:third_to].to_i], [jquery_params[:fourth_from].to_i, jquery_params[:fourth_to].to_i]]
+      each_day = Utils::EachDay.new(jquery_params, range, calc_method, free).period
+      amount = Utils::Amount.new(tariff, each_day).calc
+      message = "正常に表示されました"
+      job = true
+    else
+      tariff = empty_array[:tariff]
+      range = empty_array[:range]
+      each_day = empty_array[:each_day]
+      amount = empty_array[:amount]
+      message = messages.join("。")
+      job = false
+    end
 
     respond_to do |format|
       # format.html { redirect_to owns_search_path }
-      format.json { render json: break_down(tariff, date_params, each_day, range, amount, message, job, free, calc_method) }
+      format.json { render json: break_down(tariff, jquery_params, each_day, range, amount, message, job, free, calc_method) }
     end
   end
 
   private
 
-  def date_params
+  def jquery_params
     params.permit(:format, :start, :finish, :calc, :free, :first_from, :first_to, :first_amount, :second_from, :second_to, :second_amount, :third_from, :third_to, :third_amount, :fourth_from, :fourth_to, :fourth_amount)
   end
 
@@ -53,16 +63,22 @@ class OwnsController < ApplicationController
   end
 
   def max(third, fourth)
-    @third = third[1].to_i == 999999 ? [third[0], "以後ずっと"] : [third[0], "#{third[1]}日"]
-    @fourth = third[1].to_i == 999999 ? ["--","--"] : ["#{fourth[0]}日","以後ずっと"]
+    if third[0].to_i == 999 && third[1].to_i == 999
+      @third = ["--","--"]
+    elsif third[1].to_i != 999
+      @third = ["#{third[0]}日", "#{third[1]}日"]
+    else
+      @third = ["#{third[0]}日", "以後ずっと"]
+    end
+    @fourth = third[1].to_i == 999 ? ["--","--"] : ["#{fourth[0]}日","以後ずっと"]
   end
 
-  def break_down(tariff, date_params, each_day, range, amount, message, job, free, calc_method)
+  def break_down(tariff, jquery_params, each_day, range, amount, message, job, free, calc_method)
     max(range[6], range[7])
     {
     # ajaxに送り返すdataを、ハッシュで格納
     free: free,
-    free_period: free_period(date_params[:start], date_params[:finish], each_day[4], free),
+    free_period: free_period(jquery_params[:start], jquery_params[:finish], each_day[4], free),
 
     first_tariff: tariff[4],
     second_tariff: tariff[5],

@@ -1,11 +1,11 @@
 <h1>自由計算版</h1>
-  <p>起算日：<%= date_field_tag "", "", class: "start", id: "rqd" %></p>
+  <p>起算日：<%= date_field_tag "","", class: "start", id: "rqd", min: "2000-01-01" %></p>
   <p>Pick日：<%= date_field_tag "", "", class: "finish", id: "rqd" %></p>
-  <p>計算方法：<%= select_tag "", raw("<option>選択してください</option><option>calender_day</option><option>working_day</option>"), class: "calc" %></p>
+  <p>計算方法：<%= select_tag "", raw("<option>選択してください</option><option>calender_day</option><option>working_day</option>"), class: "calc", id: "rqd" %></p>
   <p>フリータイム：<%= select_tag "", options_for_select(option_array(1)), class: "free_time", id: "rqd" %></p>
-  <p>タリフ：
+  <p>タリフ（以降ずっとの場合、Toの部分に999を入力し、その後の期間のFromTo両方を999にしてください）：
   <% ["first", "second", "third", "fourth"].each.with_index(1) do |period, i| %>
-    <p>第<%= i %>期間：
+    <p class= "period_wrap_<%= i %>">第<%= i %>期間（From から To）：
     <%= number_field_tag "","",min:1, max: 999, class: "#{period}_from", id: "rqd" %>
     から
     <%= number_field_tag "","",min:1, max: 999, class: "#{period}_to", id: "rqd" %></p>

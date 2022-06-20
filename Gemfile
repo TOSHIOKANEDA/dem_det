@@ -75,3 +75,5 @@ gem "jquery-rails"
 gem 'momentjs-rails'
 gem 'font-awesome-sass'
 gem 'business_time'
+gem 'devise'
+gem 'devise-i18n'
