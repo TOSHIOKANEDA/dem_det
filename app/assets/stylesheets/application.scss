@@ -169,9 +169,33 @@ main select option {
   padding: .4em .8em;
 }
 
+main #login_btn,
 main #save_tariff,
 main #start_cal_own {
   @include input(100%);
   cursor: pointer;
   background-color: rgb(218, 169, 169);
+}
+
+// ログイン回り
+
+.login_top {
+  margin-top: 20px;
+  padding-top: $header_height;
+  text-align: center;
+  font-weight: bold;
+  a {
+    font-weight: bold;
+    background-color: blue;
+    color: white;
+  }
+}
+
+main .login_input {
+  @include input(70%);
+  margin: 100px auto;
+}
+
+main .actions {
+  margin-top: 20px;
 }

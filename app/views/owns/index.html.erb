@@ -1,4 +1,3 @@
-<h2><%= link_to "リセット", root_path %></h2>
 <aside class="sidebar">
   <% if @appear %><%= render partial: "tariff" %><% end %>
 </aside>
@@ -20,7 +19,7 @@
 
     <%= submit_tag "計算する", id: "start_cal_own", style:"display: none" %>
 
-    <p>計算間違ってたら連絡もらえると嬉しいです。費用は参考程度にしてくださいね（なんかあっても責任は取りません）</p>
+    <p>計算間違ってたら<%= link_to "ここから連絡", "https://forms.gle/pRWN9NBm7ZEbPp5e7", class: "link_text"%>もらえると嬉しいです。金額は参考程度にしてくださいね（なんかあっても責任は取りません）</p>
     <ul class="js-messages">
       <li class="message"></li>
     </ul>
