@@ -1,26 +1,18 @@
-<h2>ログイン</h2>
+<div class="login_top">ようこそ保管量計算ページへ。タリフを保存すると、何度も呼び出せるので便利ですよ。初めての方は、
+<%= link_to "新規登録", new_registration_path(resource_name) %>してください。</div>
 
+<main>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
+  <p class="login_input">
+    <%= f.label :email %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
+    <%= f.label :password %>
     <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
+  </p>
 
   <div class="actions">
-    <%= f.submit "ログイン" %>
+    <%= f.submit "ログイン", id: "login_btn" %>
   </div>
 <% end %>
-
-<%= render "users/shared/links" %>
+</main>

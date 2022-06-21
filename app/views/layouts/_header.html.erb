@@ -1,0 +1,15 @@
+<header>
+  <h1>保管量計算しましょ(Test ver)</h1>
+  <ul>
+  <%= link_to "質問相談依頼とか", "https://forms.gle/pRWN9NBm7ZEbPp5e7", class: "button"%>
+    <% if user_signed_in? %>
+      <% unless [action_name, controller_name] == ["new", "tariffs"] %>
+      <li><%= link_to "タリフの設定", new_tariff_path, class: "button" %></h2></li>
+      <% end %>
+      <li><%= link_to "ログアウト", destroy_user_session_path, method: "delete", class: "button" %></li>
+    <% else %>
+      <li><%= link_to "メインページ", root_path, class: "button" %></h2></li>
+      <li ><%= link_to "ログイン", new_user_session_path, class: "button" %></li>
+    <% end %>
+  </ul>
+</header>

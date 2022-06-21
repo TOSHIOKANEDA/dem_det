@@ -1,0 +1,201 @@
+$header_height: 60px;
+@import "text";
+
+@mixin button($color, $text_color) {
+  margin-left: 10px;
+  background-color: $color;
+  color: $text_color;
+  padding: 9px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.4s; 
+}
+
+@mixin input($width){
+  width: $width;
+  padding: .4em .8em;
+  border-radius: 0;
+  background-image: none;
+  background-color: transparent;
+  border: 1px solid rgba(0,0,0,.1);
+  font-family: inherit;
+  font-size: .95em;
+  color: inherit;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+li {
+list-style: none;
+}
+
+@mixin select($width){
+  width: $width;
+  padding: .4em .8em;
+	border-radius: 0;
+	background-image: none;
+	border: 1px solid rgba(0,0,0,.1);
+	font-family: inherit;
+	font-size: .95em;
+	color: inherit;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 5px;
+  margin: 0;
+  background-color: #fafafa;
+  color: rgb(31, 30, 27);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  top: 0; /*ブラウザのウィンドウを基準にヘッダーの位置を指定*/
+  color: #fff;
+  height: $header_height;
+}
+
+header h1 {
+  font-weight: bold;
+}
+
+header ul {
+  text-align: right;
+ }
+
+header li{
+  display:inline; 
+  padding:0 10px;
+}
+
+header .button {
+  @include button(blue, white);
+}
+
+// body
+
+aside {
+  padding-top: $header_height;
+}
+
+.tariff_top{
+  padding-top: $header_height;
+  text-align: center;
+  font-weight: bold;
+}
+
+.main_container {
+  display: flex;
+  margin: 0 auto;
+  max-width: 1080px;
+}
+.main_contents {
+  width: calc(100% - 300px);
+}
+.sidebar {
+  width: 300px;
+}
+@media screen and (max-width: 767px) {
+  .main_container {
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+  }
+  .main_contents,
+  .sidebar {
+    width: 100%;
+  }
+}
+
+main .button {
+  @include button(rgb(148, 8, 10), black)
+}
+
+main {
+  text-align: left;
+}
+main label {
+  display: block;
+  font-size: .95em;
+  margin: 0 0 .2em;
+}
+main p {
+  margin: 0 0 1em;
+  border: 10px solid hsla(0,0%,100%,.5);
+}
+main input {
+  @include input(100%);
+}
+
+main .first_from,
+main .first_to,
+main .second_from,
+main .second_to,
+main .third_from,
+main .third_to,
+main .fourth_from,
+main .fourth_to{
+  @include input(25%);
+}
+
+main .first_amount,
+main .second_amount,
+main .third_amount,
+main .fourth_amount {
+  @include input(70%);
+  margin-top: 3px;
+}
+
+main select:focus,
+main input:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid rgba(0,0,0,.3);
+}
+
+main select {
+  @include select(100%)
+}
+
+main select option {
+  padding: .4em .8em;
+}
+
+main #login_btn,
+main #save_tariff,
+main #start_cal_own {
+  @include input(100%);
+  cursor: pointer;
+  background-color: rgb(218, 169, 169);
+}
+
+// ログイン回り
+
+.login_top {
+  margin-top: 20px;
+  padding-top: $header_height;
+  text-align: center;
+  font-weight: bold;
+  a {
+    font-weight: bold;
+    background-color: blue;
+    color: white;
+  }
+}
+
+main .login_input {
+  @include input(70%);
+  margin: 100px auto;
+}
+
+main .actions {
+  margin-top: 20px;
+}
