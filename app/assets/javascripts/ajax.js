@@ -1,6 +1,5 @@
 $(function () {
   $('#start_cal').click(function () {
-    $("h1").css("color", "#0000FF");
     var Start = $('.start');
     var Finish = $('.finish');
     var Calc = $('.calc')

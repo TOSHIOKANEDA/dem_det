@@ -73,7 +73,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'holiday_jp'
 gem "jquery-rails"
 gem 'momentjs-rails'
-gem 'font-awesome-sass'
 gem 'business_time'
 gem 'devise'
 gem 'devise-i18n'
+gem 'font-awesome-sass'
