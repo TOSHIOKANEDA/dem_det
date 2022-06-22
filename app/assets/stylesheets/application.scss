@@ -13,6 +13,7 @@ $header_height: 60px;
 
 @mixin input($width){
   width: $width;
+  height: 50px;
   padding: .4em .8em;
   border-radius: 0;
   background-image: none;
@@ -31,6 +32,7 @@ list-style: none;
 
 @mixin select($width){
   width: $width;
+  height: 50px;
   padding: .4em .8em;
 	border-radius: 0;
 	background-image: none;
