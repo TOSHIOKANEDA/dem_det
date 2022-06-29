@@ -87,6 +87,11 @@ aside {
   padding-top: $header_height;
 }
 
+aside ul {
+  border: 5px solid black;
+  border-radius: 10px;
+}
+
 .tariff_top{
   padding-top: $header_height;
   text-align: center;
@@ -199,5 +204,5 @@ main .login_input {
 }
 
 main .actions {
-  margin-top: 20px;
+  margin-top: 200px;
 }

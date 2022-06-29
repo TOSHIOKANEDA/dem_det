@@ -1,7 +1,7 @@
 <div class="tariff_top">よく使うタリフを保存<div>
 <main>
   <div class="main_container">
-  <%= form_with model: @tariff, url: tariffs_path, method: :post do |f| %>
+  <%= form_with model: @tariff, url: tariffs_path, method: :post, local: true do |f| %>
     <label>呼び出し名：</label>
     <%= f.text_field :name, required: true %>
 
