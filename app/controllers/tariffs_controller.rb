@@ -9,6 +9,7 @@ class TariffsController < ApplicationController
     messages = Tariff.tariff_validating(tariff_params)
     if messages.empty?
       Tariff.create!(tariff_params)
+      redirect_to owns_index_path
     else
       p messages.join("。")
     end

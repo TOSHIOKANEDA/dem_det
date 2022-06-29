@@ -1,18 +1,20 @@
-<div class="login_top">ようこそ保管量計算ページへ。タリフを保存すると、何度も呼び出せるので便利ですよ。初めての方は、
-<%= link_to "新規登録", new_registration_path(resource_name) %>してください。</div>
+<div class="login_top">
+  ようこそ保管量計算ページへ。タリフを保存すると、何度も呼び出せるので便利ですよ。初めての方は、
+  <%= link_to "新規登録", new_registration_path(resource_name) %>してください。
+</div>
 
 <main>
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <p class="login_input">
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="login_input">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
 
-    <%= f.label :password %>
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </p>
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "ログイン", id: "login_btn" %>
-  </div>
-<% end %>
+    <div class="actions">
+      <%= f.submit "ログイン", id: "login_btn" %>
+    </div>
+  <% end %>
 </main>
